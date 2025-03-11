@@ -63,7 +63,7 @@ resource "aws_instance" "sonarqube" {
   instance_type          = var.instance_type
   subnet_id              = var.subnet_id
   vpc_security_group_ids = [aws_security_group.sonarqube_sg.id]
-  key_name               = "mrinal.pem" # Update with your EC2 key pair
+  key_name               = "mrinal" # Update with your EC2 key pair
 
    user_data = <<-EOF
               #!/bin/bash
