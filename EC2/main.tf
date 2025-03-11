@@ -22,7 +22,7 @@ resource "aws_instance" "sonarqube" {
                 -p 9000:9000 \
                 --ulimit nofile=65536:65536 \
                 --ulimit nproc=4096:4096 \
-                -e SONAR_JDBC_URL=jdbc:postgresql://${aws_db_instance.sonarqube_db.address}:5432/sonarqube \
+                -e SONAR_JDBC_URL=jdbc:postgresql://${module.ec2.aws_db_instance.sonarqube_db.address}:5432/sonarqube \
                 -e SONAR_JDBC_USERNAME=${var.db_username} \
                 -e SONAR_JDBC_PASSWORD=${var.db_password} \
                 sonarqube:lts
