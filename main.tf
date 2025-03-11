@@ -51,7 +51,7 @@ resource "aws_db_instance" "sonarqube_db" {
 
 resource "aws_db_subnet_group" "sonarqube_subnet_group" {
   name       = "sonarqube-subnet-group"
-  subnet_ids = [var.subnet_id]
+  subnet_ids = var.subnet_ids
 
   tags = {
     Name = "SonarQube DB Subnet Group"
