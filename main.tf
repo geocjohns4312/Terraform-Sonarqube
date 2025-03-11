@@ -59,16 +59,16 @@ resource "aws_db_subnet_group" "sonarqube_subnet_group" {
 }
 
 resource "aws_instance" "sonarqube" {
-  ami                    = "ami-0c55b159cbfafe1f0" # Update with latest Ubuntu AMI
+  ami                    = "ami-08b5b3a93ed654d19" # Update with latest Amazon linux AMI
   instance_type          = var.instance_type
   subnet_id              = var.subnet_id
   vpc_security_group_ids = [aws_security_group.sonarqube_sg.id]
-  key_name               = "your-key-pair" # Update with your EC2 key pair
+  key_name               = "mrinal.pem" # Update with your EC2 key pair
 
-  user_data = <<-EOF
+   user_data = <<-EOF
               #!/bin/bash
-              apt update -y
-              apt install -y docker.io
+              yum update -y
+              yum install -y docker
               systemctl start docker
               systemctl enable docker
 
