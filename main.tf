@@ -72,8 +72,15 @@ resource "aws_instance" "sonarqube" {
               systemctl start docker
               systemctl enable docker
 
+              # Increase vm.max_map_count for Elasticsearch
+              echo "vm.max_map_count=262144" >> /etc/sysctl.conf
+              sysctl -w vm.max_map_count=262144
+
+              # Run SonarQube in Docker
               docker run -d --name sonarqube \
                 -p 9000:9000 \
+                --ulimit nofile=65536:65536 \
+                --ulimit nproc=4096:4096 \
                 -e SONAR_JDBC_URL=jdbc:postgresql://${aws_db_instance.sonarqube_db.address}:5432/sonarqube \
                 -e SONAR_JDBC_USERNAME=${var.db_username} \
                 -e SONAR_JDBC_PASSWORD=${var.db_password} \
