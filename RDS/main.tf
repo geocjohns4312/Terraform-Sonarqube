@@ -25,6 +25,14 @@ resource "aws_security_group" "sonarqube_sg" {
   }
 }
 
+resource "aws_db_subnet_group" "sonarqube_subnet_group" {
+  name       = "sonarqube-subnet-group"
+  subnet_ids = var.subnet_ids
+
+  tags = {
+    Name = "SonarQube DB Subnet Group"
+  }
+}
 
 
 resource "aws_db_instance" "sonarqube_db" {
@@ -42,11 +50,3 @@ resource "aws_db_instance" "sonarqube_db" {
   db_subnet_group_name = aws_db_subnet_group.sonarqube_subnet_group.name
 }
 
-resource "aws_db_subnet_group" "sonarqube_subnet_group" {
-  name       = "sonarqube-subnet-group"
-  subnet_ids = var.subnet_ids
-
-  tags = {
-    Name = "SonarQube DB Subnet Group"
-  }
-}
